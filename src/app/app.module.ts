@@ -1,20 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule,FormsModule} from '@angular/forms';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+import {userdataservice} from './service/user.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-
+import { HomeComponent } from './home/home.component';
+import { VideocenterComponent } from './videocenter/videocenter.component';
+import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './login/login.component';
+ 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    VideocenterComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpModule,
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers:[{provide: LocationStrategy,useClass: HashLocationStrategy},userdataservice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

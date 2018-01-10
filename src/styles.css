@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+.panel-default{
+	background-color: #efecec;
+}
+.panel-heading{
+	height:50px;
+	width: 100%;
+	background-color: #13d9e482;
+	box-sizing: initial;
+}
