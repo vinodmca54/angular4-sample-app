@@ -1,0 +1,31 @@
+<div class="container">
+		   <div class="panel panel-default">
+		   	 <div class="panel-heading">
+		   	 	<h4>Signup form</h4>
+		   	 </div>
+		   	 <div class="panel-body">
+		   	 	<div class="col-md-12">
+					<form #userForm = "ngForm" (ngSubmit)="submituserdetails(userForm.value)" novalidate>
+				        <div class="form-group">
+				            <label>name</label>
+				            <input type="text" class="form-control" name="uname" ngModel>
+				        </div>
+				        <div class="form-group">
+				            <label>mobile number</label>
+				            <input type="text" class="form-control" name="umobilenum" ngModel>
+				        </div>
+				        <div class="form-group">
+				            <label>Email id</label>
+				    		<input type="text" class="form-control" name="usermmail" ngModel>
+				        </div>
+				        <div class="form-group">
+				            <label>Password</label> 
+				            <input type="text" class="form-control" name="upassword" ngModel>
+				        </div>
+				     <button type="submit" class="btn btn-primary">submit</button>
+    			</form>
+				</div>
+		   	 </div>
+		   </div>
+	</div>
+

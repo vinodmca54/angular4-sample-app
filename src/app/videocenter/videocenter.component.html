@@ -1,0 +1,25 @@
+<section>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>User data</h3>
+			</div>
+			<div class="panel-body">
+				<table>
+					<thead>
+						<th>name</th>
+						<th>age</th>
+						<th>url</th>
+					</thead>
+					<tbody>
+						<tr *ngFor= "let user of data">
+							<td>{{user.title}}</td>
+							<td>{{user.description}}</td>
+							<td>{{user._id}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
