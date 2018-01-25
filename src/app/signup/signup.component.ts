@@ -16,7 +16,8 @@ export class SignupComponent implements OnInit {
     userobj = {};
 
     submituserdetails(userdata:any){
-
+              
+          userdata.umobilenum = "9494437121";
           this.userobj ={
           		username:userdata.uname,
           		usermobilenum:userdata.umobilenum,
