@@ -26,15 +26,12 @@ export class LoginComponent implements OnInit {
 	   		this.http.post('/login',this.loginobject)
            	 .subscribe((res:any) => {
                let data = res.json();
-               console.log(data);  
-               console.log(data.status);  
+               console.log(data.token);
+               sessionStorage.setItem('jwttoken', data.token);
                if(data.status == false){
-
                		this._router.navigate(['/login']); 
-                  
                }else{
                   this._router.navigate(['/videos']); 
-
                }
 		    })
 	   }

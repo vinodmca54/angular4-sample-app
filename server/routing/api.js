@@ -7,20 +7,20 @@ const saltRounds = 10;
 const  videoschem = require('../models/videos');
 const  userdata = require('../models/userschema');
 const  loginschema = require('../models/loginschema');
-//console.log(videoschem);
+const jwt    = require('jsonwebtoken'); 
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/ngapp',{useMongoClient:true},function(err){
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost:27017/ngapp',{useMongoClient:true},function(err){
    
-    if(err){
+//     if(err){
        
-       console.log("Error occured db not connected");
-    }else{
+//        console.log("Error occured db not connected");
+//     }else{
 
-    		console.log("db connected successfully");
+//     		console.log("db connected successfully");
 
-     }
-});
+//      }
+// });
 
 
 router.get('/getuserdetails',(req,res)=>{
@@ -89,8 +89,18 @@ router.post('/login',(req,res)=>{
                userdata.findOne({"usermail":req.body.Usermail,"userpassword":pswd},function(err,doc){
 
                 if(doc != null){
+                    console.log("vinod==========");
+                  console.log(doc);
+                  // var docdata = json({doc});
+                  var user = {
+                      username:doc.username,
+                      usermail:doc.usermail
+                  };
+                    var token = jwt.sign(user,'shhhh', {
+                        expiresIn: 60 * 60 * 24 // expires in 24 hours
+                      });
 
-                    res.send({message:"userAuthenticated",status:true});
+                    res.send({message:"userAuthenticated",status:true,token:token});
 
                 }else{
 
@@ -137,8 +147,35 @@ router.get('/videos',function(req,res){
  //    	 }
  //    })
 
-
-
 });
+
+router.use(function(req, res, next) {
+    var token = req.body.token;
+    delete req.body.token;
+  
+    if (token) {
+        // verifies secret and checks exp
+        jwt.verify(token, 'shhhh', function(err, decoded) {
+            if (err) {
+                return res.status(403).send({ success: false, mCode: "expToken", message: 'Failed to authenticate token------- Error: ' + err + ' URL: ' });
+            } else {
+                req.decoded = decoded;
+                if ('vinod' == decoded.username) {
+                    next();
+                } else {
+                    return res.status(403).send({ success: false, mCode: "expToken", message: 'Failed to authenticate token--- req from other userid.' + ' Auth UID: ' });
+                }
+            }
+        });
+    } else {
+        // if there is no token
+        // return an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+    }
+  });
+
 
 module.exports= router;
